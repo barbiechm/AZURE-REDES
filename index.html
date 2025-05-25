@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guía Profesional Azure VNET</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  </head>
+  <body>
+    <div id="particles-js"></div>
+    <div class="gradient-overlay"></div>
+
+    <div class="main-container">
+      <header class="glass-header">
+        <div class="header-content">
+          <h1 class="gradient-text">Guía Completa de Azure VNET</h1>
+          <p class="subtitle">
+            Configuración profesional de redes virtuales en Azure
+          </p>
+        </div>
+      </header>
+
+      <div class="content-wrapper">
+        <!-- NIC Section -->
+        <section class="glass-section">
+          <div class="section-header" onclick="toggleSection('nic-content')">
+            <h2>1. Interfaces de Red (NIC)</h2>
+            <span class="toggle-icon">+</span>
+          </div>
+          <div id="nic-content" class="section-content">
+            <div class="glass-card">
+              <h3>¿Qué es una NIC en Azure?</h3>
+              <p>
+                Una interfaz de red (NIC) es el componente fundamental que
+                permite a tu máquina virtual (VM) conectarse a una red virtual
+                (VNET) y comunicarse con otros recursos.
+              </p>
+
+              <p>
+                Cuando creas una VM en Azure, se le asigna automáticamente una
+                NIC con las siguientes características:
+              </p>
+              <ul class="glass-list">
+                <li>
+                  <span class="highlight">Dirección IP privada</span> (asignada
+                  por defecto desde el rango de la subred)
+                </li>
+                <li>
+                  <span class="highlight">IP pública opcional</span> (para
+                  comunicación con Internet)
+                </li>
+                <li>
+                  <span class="highlight"
+                    >Asociación con grupos de seguridad de red (NSG)</span
+                  >
+                  para controlar el tráfico
+                </li>
+                <li>
+                  <span class="highlight"
+                    >Conexión a una subred específica</span
+                  >
+                  dentro de tu VNET
+                </li>
+              </ul>
+            </div>
+
+            <div class="glass-note">
+              <div class="note-icon">ℹ️</div>
+              <p>
+                <strong>Nota importante:</strong> Una VM puede tener múltiples
+                NICs, cada una conectada a diferentes subredes, lo que permite
+                configuraciones de red avanzadas.
+              </p>
+            </div>
+
+            <div class="glass-card">
+              <h3>Configuración de una NIC</h3>
+              <p>
+                Puedes configurar una NIC durante la creación de la VM o
+                posteriormente:
+              </p>
+              <ul class="glass-list">
+                <li>
+                  <span class="highlight">Durante la creación:</span> Azure
+                  configura automáticamente la NIC básica
+                </li>
+                <li>
+                  <span class="highlight">Posteriormente:</span> Puedes añadir
+                  NICs adicionales o modificar las existentes
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- IP Section -->
+        <section class="glass-section">
+          <div class="section-header" onclick="toggleSection('ip-content')">
+            <h2>2. Configuración IP (IPv4/IPv6)</h2>
+            <span class="toggle-icon">+</span>
+          </div>
+          <div id="ip-content" class="section-content">
+            <div class="ip-grid">
+              <div class="glass-card">
+                <h3 class="ipv4-title">IPv4 en Azure</h3>
+                <p>IPv4 es el protocolo de Internet más utilizado en Azure:</p>
+                <ul class="glass-list">
+                  <li>
+                    Asignación automática de IP privada desde el rango de la
+                    subred
+                  </li>
+                  <li>
+                    Puede ser dinámica (cambia al reiniciar) o estática (fija)
+                  </li>
+                  <li>Soporte para IP públicas asignadas a recursos</li>
+                </ul>
+              </div>
+
+              <div class="glass-card">
+                <h3 class="ipv6-title">IPv6 en Azure</h3>
+                <p>
+                  Azure también soporta IPv6, pero requiere configuración
+                  adicional:
+                </p>
+                <ul class="glass-list">
+                  <li>Debe habilitarse explícitamente en la VNET</li>
+                  <li>Configuración especial necesaria para la subred</li>
+                  <li>Compatibilidad con la mayoría de servicios de Azure</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="glass-warning">
+              <div class="warning-icon">⚠️</div>
+              <p>
+                <strong>Atención:</strong> No todos los servicios de Azure
+                soportan IPv6 completamente. Verifica la documentación antes de
+                implementar.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Rest of your sections follow the same pattern -->
+        <!-- VNET Section -->
+        <section class="glass-section">
+          <div class="section-header" onclick="toggleSection('vnet-content')">
+            <h2>3. Redes Virtuales (VNET)</h2>
+            <span class="toggle-icon">+</span>
+          </div>
+          <div id="vnet-content" class="section-content">
+            <div class="glass-card">
+              <h3>¿Qué es una VNET?</h3>
+              <p>
+                Una red virtual (VNET) es el bloque fundamental para tu red
+                privada en Azure:
+              </p>
+              <ul class="glass-list">
+                <li>Equivalente a una VPC en AWS</li>
+                <li>Aislamiento lógico completo de otros recursos</li>
+                <li>Puede dividirse en múltiples subredes</li>
+                <li>Conecta VMs, bases de datos y otros servicios</li>
+              </ul>
+            </div>
+
+            <div class="glass-card">
+              <h3>Características clave</h3>
+              <ul class="glass-list">
+                <li>
+                  <span class="highlight">Espacio de direcciones:</span> Define
+                  el rango IP de toda la red
+                </li>
+                <li>
+                  <span class="highlight">Subredes:</span> Divisiones lógicas
+                  dentro de la VNET
+                </li>
+                <li>
+                  <span class="highlight">Grupos de seguridad:</span> Controlan
+                  el tráfico entrante/saliente
+                </li>
+                <li>
+                  <span class="highlight">Conectividad:</span> Puede conectarse
+                  a otras VNETs o a redes locales
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- DNS Section -->
+        <section class="glass-section">
+          <div class="section-header" onclick="toggleSection('dns-content')">
+            <h2>4. Configuración DNS</h2>
+            <span class="toggle-icon">+</span>
+          </div>
+          <div id="dns-content" class="section-content">
+            <div class="glass-card">
+              <h3>Opciones DNS en Azure</h3>
+              <p>Azure ofrece varias opciones para la resolución de nombres:</p>
+              <ul class="glass-list">
+                <li>
+                  <span class="highlight">DNS de Azure:</span> Servicio interno
+                  proporcionado por defecto
+                </li>
+                <li>
+                  <span class="highlight">DNS personalizado:</span> Usa tus
+                  propios servidores (Google DNS, Cloudflare, etc.)
+                </li>
+                <li>
+                  <span class="highlight">Azure DNS:</span> Servicio de
+                  alojamiento de dominios con alta disponibilidad
+                </li>
+              </ul>
+            </div>
+
+            <div class="glass-card">
+              <h3>Zonas DNS</h3>
+              <p>Puedes crear zonas DNS públicas o privadas:</p>
+              <ul class="glass-list">
+                <li>
+                  <span class="highlight">Zonas públicas:</span> Para dominios
+                  accesibles desde Internet
+                </li>
+                <li>
+                  <span class="highlight">Zonas privadas:</span> Para resolución
+                  de nombres dentro de tu VNET
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Load Balancers Section -->
+        <section class="glass-section">
+          <div
+            class="section-header"
+            onclick="toggleSection('balanceadores-content')"
+          >
+            <h2>5. Balanceadores de Carga</h2>
+            <span class="toggle-icon">+</span>
+          </div>
+          <div id="balanceadores-content" class="section-content">
+            <div class="lb-grid">
+              <div class="glass-card">
+                <h3 class="lb-title">Load Balancer (Nivel 4)</h3>
+                <p>Balanceador básico para tráfico TCP/UDP:</p>
+                <ul class="glass-list">
+                  <li>Distribuye tráfico basado en IP y puerto</li>
+                  <li>Ideal para tráfico no HTTP</li>
+                  <li>Puede ser interno o público</li>
+                </ul>
+              </div>
+
+              <div class="glass-card">
+                <h3 class="agw-title">Application Gateway (Nivel 7)</h3>
+                <p>Balanceador avanzado para aplicaciones web:</p>
+                <ul class="glass-list">
+                  <li>Enrutamiento basado en URL</li>
+                  <li>Terminación SSL (SSL offloading)</li>
+                  <li>Firewall de aplicaciones web (WAF)</li>
+                  <li>Affinity de sesión</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="glass-note">
+              <div class="note-icon">💡</div>
+              <p>
+                <strong>Recomendación:</strong> Usa Application Gateway para
+                aplicaciones web y Load Balancer para otro tipo de tráfico.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Flow Section -->
+        <section class="glass-section">
+          <div class="section-header" onclick="toggleSection('flujo-content')">
+            <h2>Flujo Básico para Servidor Web</h2>
+            <span class="toggle-icon">+</span>
+          </div>
+          <div id="flujo-content" class="section-content">
+            <div class="flow-steps">
+              <div class="flow-step">
+                <div class="step-number">1</div>
+                <div class="flow-content">
+                  <h3>Crea una VNET con subred</h3>
+                  <p>
+                    Define el espacio de direcciones y las subredes necesarias
+                    para tu aplicación.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="step-number">2</div>
+                <div class="flow-content">
+                  <h3>Despliega una VM en la subred</h3>
+                  <p>
+                    Selecciona la imagen adecuada para tu servidor web (Windows
+                    IIS, Linux Apache/Nginx, etc.).
+                  </p>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="step-number">3</div>
+                <div class="flow-content">
+                  <h3>Asigna NIC con IP privada/pública</h3>
+                  <p>
+                    Configura la interfaz de red con una IP privada y, si es
+                    necesario, una IP pública.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="step-number">4</div>
+                <div class="flow-content">
+                  <h3>Configura DNS para el dominio</h3>
+                  <p>
+                    Apunta tu dominio a la IP pública o configura Azure DNS
+                    según tus necesidades.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="step-number">5</div>
+                <div class="flow-content">
+                  <h3>Para alto tráfico: añade balanceador</h3>
+                  <p>
+                    Implementa un Application Gateway o Load Balancer para
+                    distribuir el tráfico entre múltiples instancias.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VNET Simulator -->
+        <section class="glass-simulator">
+          <h3>Simulador de Configuración VNET</h3>
+
+          <div class="simulator-controls">
+            <div class="control-group">
+              <label for="vnet-name">Nombre VNET:</label>
+              <input type="text" id="vnet-name" placeholder="my-vnet" />
+            </div>
+
+            <div class="control-group">
+              <label for="vnet-cidr">Espacio de direcciones:</label>
+              <input type="text" id="vnet-cidr" placeholder="10.0.0.0/16" />
+            </div>
+
+            <div class="subnet-creator">
+              <h4>Subredes</h4>
+              <div id="subnets-container"></div>
+              <button class="glass-btn" onclick="addSubnet()">
+                + Añadir Subred
+              </button>
+            </div>
+          </div>
+
+          <div class="template-output">
+            <h4>Plantilla ARM Generada:</h4>
+            <pre id="arm-template">// La plantilla ARM aparecerá aquí</pre>
+            <button class="glass-btn copy-btn" onclick="copyTemplate()">
+              Copiar Plantilla
+            </button>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="animated-blobs">
+      <div class="blob pink"></div>
+      <div class="blob blue"></div>
+      <div class="blob purple"></div>
+    </div>
+
+    <script src="assets/particles.js"></script>
+    <script src="script.js"></script>
+    <script>
+      particlesJS("particles-js", {
+        particles: {
+          number: { value: 50 },
+          color: { value: "#ffffff" },
+          opacity: {
+            value: 0.15,
+            random: true,
+          },
+          size: {
+            value: 50,
+            random: true,
+          },
+          move: {
+            enable: true,
+            speed: 1,
+            direction: "none",
+            out_mode: "out",
+          },
+          shape: {
+            type: "circle",
+          },
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: { enable: false },
+            onclick: { enable: false },
+          },
+        },
+        retina_detect: true,
+      });
+    </script>
+  </body>
+</html>
